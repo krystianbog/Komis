@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Komis</title>
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
+            <div style="width:100%; text-align:center">
+                <span style="float:left;font-size:30px;cursor:pointer" onclick="openNav()">&#9776; menu</span>
+                <span style="margin:0 auto">
+                    <!-- Search -->
+                    <label>
+                        <i class="ion ion-ios-search navbar-icon align-middle"></i>
+                        <span class="navbar-search-input">
+                            <input type="text" class="form-control navbar-text mx-2" placeholder="Wpisz szukaną frazę i naciśnij [Enter]" onkeypress="searchBar(event)" id="searchBox" style="width:400px">
+                        </span>
+                    </label>
+                </span>
+                <span style="float:right">
+                    <span style="font-size:30px;cursor:pointer" onclick="openOpt()">opcje &#9776;</span>
+                </span>
+            </div>
+        </nav>
+    </header>
+    <div>
+        <div id="mySidenavLeft" class="sidenavLeft">
+            <a href="javascript:void(0)" class="closebtnLeft" onclick="closeNav()">&times;</a>
+            <a href="#">Oferta</a>
+            <a href="#">Zarządzaj</a>
+            <a href="#">Spotkania</a>
+            <a href="#">Dodatki</a>
+        </div>
+        <div id="mySidenavRight" class="sidenavRight">
+            <a href="javascript:void(0)" class="closebtnRight" onclick="closeOpt()">&times;</a>
+            <a href="#">Konto</a>
+            <a href="#">Wyloguj</a>
+        </div>
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2020 - Krystian Bogiel - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        function openNav() {
+            document.getElementById("mySidenavLeft").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenavLeft").style.width = "0";
+        }
+        function openOpt() {
+            document.getElementById("mySidenavRight").style.width = "250px";
+        }
+
+        function closeOpt() {
+            document.getElementById("mySidenavRight").style.width = "0";
+        }
+    </script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
