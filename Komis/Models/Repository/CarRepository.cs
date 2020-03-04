@@ -14,6 +14,8 @@ namespace Komis.Models
         {
             context = ctx;
         }
-        public IEnumerable<Car> Cars = context.Cars;
+        public List<Car> Cars => context.Cars.ToList();
+
+       
     }
 }

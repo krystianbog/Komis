@@ -13,10 +13,10 @@ namespace Komis.Controllers
         private KomisContext context;
         private CarRepository repository;
 
-        public CarController(CarRepository repo)
+        public CarController(CarRepository repo, KomisContext komisContext)
         {
             this.repository = repo;
-            context = new KomisContext();
+            context = komisContext;
         }
         public IActionResult Index()
         {
