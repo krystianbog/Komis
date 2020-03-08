@@ -13,6 +13,8 @@ using Komis.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Komis.Services;
 
 namespace Komis
 {
@@ -48,8 +50,13 @@ namespace Komis
                 options.UseSqlServer(Configuration.GetConnectionString("KomisConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-
+            //Repozytoria
             services.AddTransient<CarRepository>();
+            
+            //Email
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.Configure<AuthMessageSenderOptions>(Configuration);
+
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddRazorPages().AddRazorRuntimeCompilation();
