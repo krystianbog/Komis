@@ -96,7 +96,7 @@ namespace Komis.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Błąd podczas logowania. Czy konto zostało aktywowane?");
                     return Page();
                 }
             }

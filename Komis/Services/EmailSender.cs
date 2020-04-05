@@ -25,7 +25,7 @@ namespace Komis.Services
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage()
             {
-                From = new EmailAddress("krystianbog2@gmail.com", Options.SendGridUser),
+                From = new EmailAddress("KomisSamochodowy@email.com"),
                 Subject = subject,
                 PlainTextContent = message,
                 HtmlContent = message

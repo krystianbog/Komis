@@ -88,8 +88,8 @@ namespace Komis.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = user.Id, code = code },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    await _emailSender.SendEmailAsync(Input.Email, "Komis samochodowy - aktywacja konta",
+                        $"Aktywuj swoje konto w komisie samochodowym <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>klikając tu</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {

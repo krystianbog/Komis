@@ -1,9 +1,20 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@{
     ViewData["Title"] = "Strona startowa";
+    @inject SignInManager<IdentityUser> SignInManager
+    @inject UserManager<IdentityUser> UserManager
 }
 
-<div class="text-center">
-    <h1 class="display-4">Witaj na stronie startowej</h1>
-    <br />
-    <h2 class="display-4">Aby przejść dalej, zaloguj się</h2>
-</div>
+    <div class="text-center">
+        <h1 class="display-4">Witaj na stronie startowej</h1>
+        <br />
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <h2 class="display-4">Aby przejść dalej kliknij</h2><br /><h2 class="display-4" style="color:royalblue; font-weight:bold">"Przejdź do zarządzania"</h2>
+        }
+        else
+        {
+            <h2 class="display-4">Aby przejść dalej <a style="color:royalblue; font-weight:bolder">zaloguj się</a></h2>
+        }
+
+    </div>
