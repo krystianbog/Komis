@@ -83,7 +83,7 @@ namespace Komis.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    return RedirectToAction("Index", "Dashboard");
                 }
                 if (result.RequiresTwoFactor)
                 {
