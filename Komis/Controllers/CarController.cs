@@ -22,5 +22,25 @@ namespace Komis.Controllers
         {
             return View();
         }
+        public ViewResult List()
+        {
+            CarViewModel model = new CarViewModel();
+            model.Cars = context.Cars.Where(c=>c.IsArchived == false).ToList();
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Create (Car car)
+        {
+            try
+            {
+                repository.SaveCar(car);
+                return RedirectToAction("List");
+            }            
+            catch
+            {
+                return View(car);
+            }
+        }
     }
 }

@@ -14,8 +14,10 @@ namespace Komis.Models
         {
             context = ctx;
         }
-        public List<Car> Cars => context.Cars.ToList();
-
-       
+       public void SaveCar(Car car)
+        {
+                context.Cars.Add(car);
+                context.SaveChanges();
+        }
     }
 }
