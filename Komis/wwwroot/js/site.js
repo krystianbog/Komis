@@ -32,3 +32,11 @@ $(".custom-file-input").on("change", function () {
         });
     }, false);
 })();
+
+//Zoom in photos
+$(function () {
+    $('.pop').on('click', function () {
+        $('.imagepreview').attr('src', $(this).find('img').attr('src'));
+        $('#imagemodal').modal('show');
+    });
+});

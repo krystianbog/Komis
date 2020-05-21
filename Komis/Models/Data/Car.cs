@@ -1,7 +1,11 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Komis.Models
 {
@@ -19,5 +23,10 @@ namespace Komis.Models
         public string Color { get; set; }
         public bool IsArchived { get; set; } = false;
         public byte[] Photo { get; set; }
+
+        [NotMapped]
+        public IFormFile Image { get; set; }
+        [NotMapped]
+        public string PhotoString { get; set; }
     }
 }

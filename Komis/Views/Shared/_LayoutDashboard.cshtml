@@ -34,18 +34,19 @@
     <div>
         <div id="mySidenavLeft" class="sidenavLeft">
             <a href="javascript:void(0)" class="closebtnLeft" onclick="closeNav()">&times;</a>
-            <a asp-controller="Car" asp-action="List">Oferta</a>
-            <a asp-controller="Dashboard" asp-action="Index">Zarządzaj</a>
-            <a href="#">Spotkania</a>
-            <a href="#">Dodatki</a>
+            <a asp-controller="Car" asp-action="List"><i class="fas fa-list"></i>&nbsp;&nbsp;Oferta</a>
+            <a asp-controller="Car" asp-action="Archivized"><i class="far fa-eye-slash"></i>&nbsp;Historia</a>
+            <a asp-controller="Dashboard" asp-action="Index"><i class="fas fa-car-side"></i>&nbsp;Zarządzaj</a>
+            <a href="#"><i class="fas fa-handshake"></i>&nbsp;Spotkania</a>
+            <a href="#"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Dodatki</a>
         </div>
         <div id="mySidenavRight" class="sidenavRight">
             <a href="javascript:void(0)" class="closebtnRight" onclick="closeOpt()">&times;</a>
-            <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Konto</a>
-            <a asp-area="" asp-controller="Home" asp-action="Index">Start</a>
+            <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><i class="fas fa-user-cog"></i>&nbsp;Konto</a>
+            <a asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-home"></i>&nbsp;Start</a>
             <form id="formLogout" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
             </form>
-            <a id="aLogout" href="#">Wyloguj</a>
+            <a id="aLogout" href="#"><i class="fas fa-door-open"></i>&nbsp;Wyloguj</a>
         </div>
         <div class="container">
             <main role="main" class="pb-3">

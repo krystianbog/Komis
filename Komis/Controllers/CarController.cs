@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Komis.Data;
 using Komis.Models;
+using System.IO;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Komis.Controllers
 {
@@ -28,6 +30,13 @@ namespace Komis.Controllers
             model.Cars = context.Cars.Where(c=>c.IsArchived == false).ToList();
             return View(model);
         }
+        public ViewResult Archivized()
+        {
+            CarViewModel model = new CarViewModel();
+            model.Cars = context.Cars.Where(c => c.IsArchived == true).ToList();
+            return View(model);
+        }
+
 
         [HttpPost]
         public IActionResult Create (Car car)
@@ -37,9 +46,37 @@ namespace Komis.Controllers
                 repository.SaveCar(car);
                 return RedirectToAction("List");
             }            
-            catch
+            catch(Exception ex)
             {
-                return View(car);
+                return RedirectToAction("List");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Archivize(int carId)
+        {
+            try
+            {
+                repository.ArchivizeCar(carId);
+                return RedirectToAction("List");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("List");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult UnArchivize(int carId)
+        {
+            try
+            {
+                repository.UnArchivizeCar(carId);
+                return RedirectToAction("Archivized");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Archivized");
             }
         }
     }
