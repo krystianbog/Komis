@@ -17,6 +17,7 @@ namespace Komis.Models
         {
             context = ctx;
         }
+
         public void SaveCar(Car car)
         {
             if (car.Image != null)
@@ -29,6 +30,31 @@ namespace Komis.Models
             }            
             context.Cars.Add(car);
             context.SaveChanges();            
+        }
+
+        public void EditCar(Car editCar)
+        {
+            Car dbCar = context.Cars.FirstOrDefault(c => c.CarId == editCar.CarId);
+
+            dbCar.BodyType = editCar.BodyType;
+            dbCar.Color = editCar.Color;
+            dbCar.EngineSize = editCar.EngineSize;
+            dbCar.FuelType = editCar.FuelType;
+            dbCar.Manufacturer = editCar.Manufacturer;
+            dbCar.Model = editCar.Model;
+            dbCar.Price = editCar.Price;
+            dbCar.Transmission = editCar.Transmission;
+            dbCar.YearOfProduction = editCar.YearOfProduction;
+
+            if (editCar.Image != null)
+            {
+                using (var stream = new MemoryStream())
+                {
+                    editCar.Image.CopyTo(stream);
+                    dbCar.Photo = stream.ToArray();
+                }
+            }
+            context.SaveChanges();
         }
 
         public void ArchivizeCar(int carId)
@@ -49,30 +75,6 @@ namespace Komis.Models
                 dbEntry.IsArchived = false;
             }
             context.SaveChanges();
-        }
-
-        public void EditCar(Car editCar)
-        {
-            Car dbCar = context.Cars.FirstOrDefault(c => c.CarId == editCar.CarId);
-
-            dbCar.BodyType = editCar.BodyType;
-            dbCar.Color = editCar.Color;
-            dbCar.EngineSize = editCar.EngineSize;
-            dbCar.FuelType = editCar.FuelType;
-            dbCar.Manufacturer = editCar.Manufacturer;
-            dbCar.Model = editCar.Model;
-            dbCar.Price = editCar.Price;
-            dbCar.Transmission = editCar.Transmission;
-            dbCar.YearOfProduction = editCar.YearOfProduction;
-            if (editCar.Image != null)
-            {
-                using (var stream = new MemoryStream())
-                {
-                    editCar.Image.CopyTo(stream);
-                    dbCar.Photo = stream.ToArray();
-                }
-            }
-            context.SaveChanges();
-        }
+        }  
     }
 }

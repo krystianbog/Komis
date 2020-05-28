@@ -40,3 +40,8 @@ $(function () {
         $('#imagemodal').modal('show');
     });
 });
+
+//Bootstrap Tooltips
+$(document).ready(function () {
+    $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+});

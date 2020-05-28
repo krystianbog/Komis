@@ -33,11 +33,18 @@ namespace Komis.Controllers
             return View(model);
         }
 
-        public ViewResult Archivized()
+        [HttpPost]
+        public IActionResult Create(Car car)
         {
-            CarViewModel model = new CarViewModel();
-            model.Cars = context.Cars.Where(c => c.IsArchived == true).ToList();
-            return View(model);
+            try
+            {
+                repository.SaveCar(car);
+                return RedirectToAction("List");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("List");
+            }
         }
 
         public ViewResult Edit(int editCarId)
@@ -47,17 +54,24 @@ namespace Komis.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create (Car car)
+        public IActionResult Edit(Car editCar)
         {
             try
             {
-                repository.SaveCar(car);
+                repository.EditCar(editCar);
                 return RedirectToAction("List");
-            }            
-            catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 return RedirectToAction("List");
             }
+        }
+
+        public ViewResult Archivized()
+        {
+            CarViewModel model = new CarViewModel();
+            model.Cars = context.Cars.Where(c => c.IsArchived == true).ToList();
+            return View(model);
         }
 
         [HttpGet]
@@ -85,20 +99,6 @@ namespace Komis.Controllers
             catch (Exception ex)
             {
                 return RedirectToAction("Archivized");
-            }
-        }
-
-        [HttpPost]
-        public IActionResult Edit(Car editCar)
-        {
-            try
-            {
-                repository.EditCar(editCar);
-                return RedirectToAction("List");
-            }
-            catch (Exception ex)
-            {
-                return RedirectToAction("List");
             }
         }
     }
