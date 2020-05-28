@@ -17,13 +17,12 @@
         <br />
         <div class="text-center">
             <a class="pop" style="cursor:pointer">
-                <img class="text-center" style="object-fit:cover; border: 1px solid lightgrey; border-radius:25px" src="data:image/jpeg;base64,@Convert.ToBase64String(Model.Photo)" />
+                <img class="text-center" style="width:100%;object-fit:cover; border: 1px solid lightgrey; border-radius:25px" src="data:image/jpeg;base64,@Convert.ToBase64String(Model.Photo)" />
             </a>
             <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-body">
-                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                             <img src="" class="imagepreview" style="width: 100%;">
                         </div>
                     </div>
