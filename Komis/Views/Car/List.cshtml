@@ -26,42 +26,45 @@
                 @foreach (var car in Model.Cars.OrderByDescending(c => c.CarId))
                 {
                     <tr style="width:100px; height:120px; display:table-row; vertical-align:middle; ">
-                        <td style="background-color:lightgray; border-top-left-radius:10px; border-bottom-left-radius:10px; width:30%" class="text-center">
+                        <td style="background-color:lightgray; border-top-left-radius:25px; border-bottom-left-radius:25px; width:30%" class="text-center">
                             @if (car.Photo == null)
                             {
                                 <span>Miejsce na zdjęcie</span>
                             }
                             else
                             {
-                                <a class="pop" style="cursor:pointer">
-                                    <img style="height:100px; width:200px; object-fit:cover; border: 1px solid lightgrey; border-radius:25px" src="data:image/jpeg;base64,@Convert.ToBase64String(car.Photo)" />
-                                </a>
-                                <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-body">
-                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                                <img src="" class="imagepreview" style="width: 100%;">
+                                <div class="text-left">
+                                    <a class="pop" style="cursor:pointer">
+                                        <img style="height:120px; width:90%; object-fit:cover; border-top-left-radius:25px; border-bottom-left-radius:25px" src="data:image/jpeg;base64,@Convert.ToBase64String(car.Photo)" />
+                                    </a>
+                                    <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                    <img src="" class="imagepreview" style="width: 100%;">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
                             }
                         </td>
-                        <td style="background-color:lightgray; width:50%">
+                        <td style="background-color:lightgray; width:40%">
                             <span data-toggle="tooltip" data-placement="top" title="Producent">@car.Manufacturer</span>&nbsp;&nbsp;<span data-toggle="tooltip" data-placement="top" title="Model">@car.Model</span> <br />
                             <span data-toggle="tooltip" data-placement="top" title="Rok produkcji">@car.YearOfProduction</span>&nbsp;&nbsp;·&nbsp;&nbsp;<span data-toggle="tooltip" data-placement="top" title="Pojemność silnika">@car.EngineSize cm3</span>&nbsp;&nbsp;·&nbsp;&nbsp;<span data-toggle="tooltip" data-placement="top" title="Rodzaj paliwa">@car.FuelType</span><br />
                             <span data-toggle="tooltip" data-placement="top" title="Rodzaj napędu">@car.Transmission</span>&nbsp;&nbsp;·&nbsp;&nbsp;<span data-toggle="tooltip" data-placement="top" title="Rodzaj nadwozia">@car.BodyType</span><br />
                             <span data-toggle="tooltip" data-placement="top" title="Kolor">@car.Color</span>
                         </td>
-                        <td style="background-color:lightgray; width:15%">
+                        <td style="background-color:lightgray; width:20%" class="text-center">
                             <span data-toggle="tooltip" data-placement="top" title="Cena" class="font-weight-bold" style="color:royalblue">@car.Price PLN</span>
                         </td>
-                        <td style="background-color:lightgray; width:5%;border-top-right-radius:10px; border-bottom-right-radius:10px;">
-                            <form asp-area="Car" asp-action="Archivize" asp-route-carId="@car.CarId" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                                <span data-toggle="tooltip" data-placement="top" title="Zarchiwizuj auto"><button type="submit"><i class="far fa-eye-slash" style="cursor:pointer; color:red;"></i></button></span>
-                            </form>
+                        <td style="background-color:lightgray; width:5%" class="text-center">
+                            <a asp-action="Edit" asp-route-editCarId="@car.CarId"><span data-toggle="tooltip" data-placement="top" title="Edytuj auto"><i class="fa fa-pen-alt"></i></span></a>
+
+                        </td>
+                        <td style="background-color:lightgray; width:5%;border-top-right-radius:25px; border-bottom-right-radius:25px;" class="text-center">
+                            <a asp-action="Archivize" asp-route-carId="@car.CarId"><span data-toggle="tooltip" data-placement="top" title="Zarchiwizuj auto"><i class="far fa-eye-slash" style="cursor:pointer; color:red;"></i></span></a>
                         </td>
                     </tr>
                 }

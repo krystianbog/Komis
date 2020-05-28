@@ -20,16 +20,19 @@ namespace Komis.Controllers
             this.repository = repo;
             context = komisContext;
         }
+
         public IActionResult Index()
         {
             return View();
         }
+
         public ViewResult List()
         {
             CarViewModel model = new CarViewModel();
             model.Cars = context.Cars.Where(c=>c.IsArchived == false).ToList();
             return View(model);
         }
+
         public ViewResult Archivized()
         {
             CarViewModel model = new CarViewModel();
@@ -37,6 +40,11 @@ namespace Komis.Controllers
             return View(model);
         }
 
+        public ViewResult Edit(int editCarId)
+        {
+            Car model = context.Cars.FirstOrDefault(c => c.CarId == editCarId);
+            return View(model);
+        }
 
         [HttpPost]
         public IActionResult Create (Car car)
@@ -52,7 +60,7 @@ namespace Komis.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult Archivize(int carId)
         {
             try
@@ -66,7 +74,7 @@ namespace Komis.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult UnArchivize(int carId)
         {
             try
@@ -77,6 +85,20 @@ namespace Komis.Controllers
             catch (Exception ex)
             {
                 return RedirectToAction("Archivized");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Car editCar)
+        {
+            try
+            {
+                repository.EditCar(editCar);
+                return RedirectToAction("List");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("List");
             }
         }
     }

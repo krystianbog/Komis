@@ -26,7 +26,5 @@ namespace Komis.Models
 
         [NotMapped]
         public IFormFile Image { get; set; }
-        [NotMapped]
-        public string PhotoString { get; set; }
     }
 }
