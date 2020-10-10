@@ -45,3 +45,16 @@ $(function () {
 $(document).ready(function () {
     $("body").tooltip({ selector: '[data-toggle=tooltip]' });
 });
+
+//Search box function
+$('#searchBox').keydown(function (e) {
+    if (e.keyCode == 13) {
+        var searchString = $('#searchBox').val();
+        if (searchString != "") {
+            var url = "Car/SearchResult?searchString=" + searchString;
+            window.location.href = url;
+        }
+    }
+})
+
+$('.price_tooltip').tooltip({ html: true })

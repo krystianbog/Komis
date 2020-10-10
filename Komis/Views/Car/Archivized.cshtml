@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>List</title>
 </head>
-<body>
+<body style="background-color:#f1f1f1">
     <table style=" width:100%; background-color:transparent; border-color:grey; border-collapse:separate; border-spacing: 0 15px ">
         <tbody>
             @if (Model?.Cars != null && Model?.Cars.Count() > 0)
@@ -22,7 +22,7 @@
                         <td style="background-color:lightgray; border-top-left-radius:25px; border-bottom-left-radius:25px; width:30%" class="text-center">
                             @if (car.Photo == null)
                             {
-                                <span>Miejsce na zdjęcie</span>
+                                <span>Brak zdjęcia</span>
                             }
                             else
                             {

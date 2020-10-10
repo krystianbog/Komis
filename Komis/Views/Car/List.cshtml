@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>List</title>
 </head>
-<body>
+<body style="background-color:#f1f1f1">
     <div class="text-right">
         <br />
         <a id="btnCreateCar" class="btn btn-primary" style="color:white"><i class="ion ion-ios-add-circle-outline"></i> Dodaj nowe auto</a>
@@ -29,7 +29,7 @@
                         <td style="background-color:lightgray; border-top-left-radius:25px; border-bottom-left-radius:25px; width:30%" class="text-center">
                             @if (car.Photo == null)
                             {
-                                <span>Miejsce na zdjęcie</span>
+                                <span>Brak zdjęcia</span>
                             }
                             else
                             {
@@ -59,11 +59,11 @@
                             <span data-toggle="tooltip" data-placement="top" title="Cena" class="font-weight-bold" style="color:royalblue">@car.Price PLN</span>
                         </td>
                         <td style="background-color:lightgray; width:5%" class="text-center">
-                            <a asp-action="Edit" asp-route-editCarId="@car.CarId"><span data-toggle="tooltip" data-placement="top" title="Edytuj auto"><i class="fa fa-pen-alt"></i></span></a>
+                            <a asp-action="Edit" asp-route-editCarId="@car.CarId"><span data-toggle="tooltip" data-placement="top" title="Edytuj auto"><i class="fas fa-edit"></i></span></a>
 
                         </td>
                         <td style="background-color:lightgray; width:5%;border-top-right-radius:25px; border-bottom-right-radius:25px;" class="text-center">
-                            <a asp-action="Archivize" asp-route-carId="@car.CarId"><span data-toggle="tooltip" data-placement="top" title="Zarchiwizuj auto"><i class="far fa-eye-slash" style="cursor:pointer; color:red;"></i></span></a>
+                            <a asp-action="Archivize" asp-route-carId="@car.CarId"><span data-toggle="tooltip" data-placement="top" title="Zarchiwizuj auto"><i class="fas fa-eye-slash" style="cursor:pointer; color:red;"></i></span></a>
                         </td>
                     </tr>
                 }

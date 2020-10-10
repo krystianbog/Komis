@@ -75,6 +75,12 @@ namespace Komis.Models
                 dbEntry.IsArchived = false;
             }
             context.SaveChanges();
-        }  
+        }
+
+        public List<Car> SearchEngine(string searchString)
+        {
+            List<Car> searchResult = new List<Car>();
+            return searchResult;
+        }
     }
 }

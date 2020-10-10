@@ -53,6 +53,12 @@ namespace Komis.Controllers
             return View(model);
         }
 
+        public ViewResult SearchResult(string searchString)
+        {
+            List<Car> model = repository.SearchEngine(searchString);
+            return View(model);
+        }
+
         [HttpPost]
         public IActionResult Edit(Car editCar)
         {
