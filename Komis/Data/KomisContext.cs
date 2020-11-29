@@ -15,5 +15,6 @@ namespace Komis.Data
         {
         }
         public DbSet<Car> Cars { get; set; } 
+        public DbSet<Meeting> Meetings { get; set; }
     }
 }

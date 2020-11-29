@@ -22,14 +22,11 @@
             </p>
         </li>
         <li>
-            <p>Zeskanuj kod QR lub wprowadź ten klucz<kbd>@Model.SharedKey</kbd> do swojej aplikacji autoryzacji dwufazowej.</p>
-            <div class="alert alert-info">Naucz się jak <a href="https://go.microsoft.com/fwlink/?Linkid=852423">włączyć generowanie kodów QR</a>.</div>
-            <div id="qrCode"></div>
-            <div id="qrCodeData" data-url="@Html.Raw(@Model.AuthenticatorUri)"></div>
+            <p>Wprowadź ten klucz <kbd>@Model.SharedKey</kbd> do swojej aplikacji autoryzacji dwufazowej.</p>
         </li>
         <li>
             <p>
-                Kiedy zeskanujesz kod QR lub wpiszesz powyższy kod, twoja aplikacja autoryzacji dwufazowej poda Ci unikalny kod. Wprowadź go poniżej.
+                Kiedy wpiszesz powyższy kod twoja aplikacja autoryzacji dwufazowej poda Ci unikalny kod. Wprowadź go poniżej.
             </p>
             <div class="row">
                 <div class="col-md-6">

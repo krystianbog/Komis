@@ -6,6 +6,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Komis.Data;
 using Microsoft.CodeAnalysis.Differencing;
+using Microsoft.EntityFrameworkCore;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 
 namespace Komis.Models
 {
@@ -77,10 +80,74 @@ namespace Komis.Models
             context.SaveChanges();
         }
 
-        public List<Car> SearchEngine(string searchString)
+        public Car GetCar (int carId)
+        {
+            return context.Cars.FirstOrDefault(c => c.CarId == carId);
+        }
+
+        public SearchViewModel SetSearchViewModel(string searchString)
+        {
+            string originalSearchString = searchString;
+            List<string> searchList = searchString.ToLower().Split(" ").ToList();
+            searchList.RemoveAll(x => x.Equals(string.Empty));
+            List<Car> searchResult = SearchEngine(searchList);
+
+            return new SearchViewModel { SearchString = originalSearchString, SearchResult = searchResult, SearchResultCounter = searchResult.Count() };
+        }
+
+        public List<Car> SearchEngine(List<string> searchList)
         {
             List<Car> searchResult = new List<Car>();
+            List<Car> allCars = context.Cars.Where(car => car.IsArchived == false).ToList();
+            foreach (var car in allCars)
+            {
+                string carDescription = $@"{car.Manufacturer} {car.Model} {car.BodyType} {car.YearOfProduction}".ToLower();
+                
+                foreach (var word in searchList)
+                {
+                    if (carDescription.Contains(word))
+                    {
+                        car.SearchHitCount++;
+                    }
+                }
+                if (car.SearchHitCount == searchList.Count())
+                {
+                    searchResult.Add(car);
+                }
+            }
             return searchResult;
+        }
+
+        public void AddMeeting(Meeting meeting)
+        {
+            meeting.DateOfMeeting = meeting.DateOfMeeting.Date;
+            context.Meetings.Add(meeting);
+            context.SaveChanges();
+        }
+
+        public List<Meeting> Meetings()
+        {
+            return context.Meetings.Include(x => x.Car).Where(x => x.IsArchived == false).ToList();
+        }
+
+        public List<Car> ArchivizedCars()
+        {
+            return context.Cars.Where(x => x.IsArchived == true).ToList();
+        }
+
+        public List<Car> Cars()
+        {
+            return context.Cars.Where(x => x.IsArchived == false).ToList();
+        }
+
+        public void ArchivizeMeeting(int meetingId)
+        {
+            if (meetingId != 0)
+            {
+                Meeting dbEntry = context.Meetings.FirstOrDefault(x => x.MeetingId == meetingId);
+                dbEntry.IsArchived = true;
+            }
+            context.SaveChanges();
         }
     }
 }

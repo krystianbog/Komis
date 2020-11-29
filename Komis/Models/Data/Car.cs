@@ -26,5 +26,8 @@ namespace Komis.Models
 
         [NotMapped]
         public IFormFile Image { get; set; }
+
+        [NotMapped]
+        public int SearchHitCount { get; set; } = 0;
     }
 }

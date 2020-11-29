@@ -10,6 +10,8 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>List</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body style="background-color:#f1f1f1">
     <div class="text-right">
@@ -55,12 +57,36 @@
                             <span data-toggle="tooltip" data-placement="top" title="Rodzaj napędu">@car.Transmission</span>&nbsp;&nbsp;·&nbsp;&nbsp;<span data-toggle="tooltip" data-placement="top" title="Rodzaj nadwozia">@car.BodyType</span><br />
                             <span data-toggle="tooltip" data-placement="top" title="Kolor">@car.Color</span>
                         </td>
-                        <td style="background-color:lightgray; width:20%" class="text-center">
+                        <td style="background-color:lightgray; width:15%" class="text-center">
                             <span data-toggle="tooltip" data-placement="top" title="Cena" class="font-weight-bold" style="color:royalblue">@car.Price PLN</span>
                         </td>
                         <td style="background-color:lightgray; width:5%" class="text-center">
+                            <a class="popmeet" style="cursor:pointer"><span data-toggle="tooltip" data-placement="top" title="Dodaj spotkanie"><i class="fas fa-address-book" style="color:royalblue"></i></span><input id="modalId" value="@car.CarId" type="hidden" /></a>
+                            <div class="modal fade" id="meetmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div style="padding-top: 10px">Tworzenie spotkania</div>
+                                        <div class="modal-body">
+                                                <div class="row" style="padding-top: 10px">
+                                                    <div class="col">
+                                                        @using (Html.BeginForm("AddMeetingPost", "Car", FormMethod.Post, null))
+                                                        {
+                                                            <input class="modalCarId" name="modelCarId" type="hidden"/>
+                                                            <input class="form-control" placeholder="Dane klienta" id="clientData" name="clientData" required />
+                                                            <br />
+                                                            <input class="form-control" data-date-format="dd/mm/yyyy" id="datepicker" name="dateOfMeeting" required/>
+                                                            <br />
+                                                            <input class="btn btn-primary" type="submit" value="Umów spotkanie"/>
+                                                        }
+                                                    </div>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="background-color:lightgray; width:5%" class="text-center">
                             <a asp-action="Edit" asp-route-editCarId="@car.CarId"><span data-toggle="tooltip" data-placement="top" title="Edytuj auto"><i class="fas fa-edit"></i></span></a>
-
                         </td>
                         <td style="background-color:lightgray; width:5%;border-top-right-radius:25px; border-bottom-right-radius:25px;" class="text-center">
                             <a asp-action="Archivize" asp-route-carId="@car.CarId"><span data-toggle="tooltip" data-placement="top" title="Zarchiwizuj auto"><i class="fas fa-eye-slash" style="cursor:pointer; color:red;"></i></span></a>
@@ -78,5 +104,20 @@
             }
         </tbody>
     </table>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.pl.min.js" integrity="sha512-ScqJL8X5IqP89pKmQnXULodix6OkrTtcWiTdJxPGPGdrncyJkI7KOwNRPqzZ6lWnTk/u5xboSjEeYQgeyOHyhQ==" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $('#datepicker').datepicker({
+            language: 'pl',
+            weekStart: 1,
+            daysOfWeekHighlighted: "6,0",
+            autoclose: true,
+            todayHighlight: true
+        });
+        $('#datepicker').datepicker("setDate", new Date());
+    </script>
+    <br /><br />
 </body>
 </html>

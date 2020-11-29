@@ -28,9 +28,7 @@ namespace Komis.Controllers
 
         public ViewResult List()
         {
-            CarViewModel model = new CarViewModel();
-            model.Cars = context.Cars.Where(c=>c.IsArchived == false).ToList();
-            return View(model);
+            return View(new CarViewModel { Cars = repository.Cars() });
         }
 
         [HttpPost]
@@ -49,14 +47,16 @@ namespace Komis.Controllers
 
         public ViewResult Edit(int editCarId)
         {
-            Car model = context.Cars.FirstOrDefault(c => c.CarId == editCarId);
-            return View(model);
+            return View(repository.GetCar(editCarId));
         }
 
         public ViewResult SearchResult(string searchString)
         {
-            List<Car> model = repository.SearchEngine(searchString);
-            return View(model);
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                return View(repository.SetSearchViewModel(searchString));
+            }
+            return View();
         }
 
         [HttpPost]
@@ -75,9 +75,7 @@ namespace Komis.Controllers
 
         public ViewResult Archivized()
         {
-            CarViewModel model = new CarViewModel();
-            model.Cars = context.Cars.Where(c => c.IsArchived == true).ToList();
-            return View(model);
+            return View(new CarViewModel { Cars = repository.ArchivizedCars() });
         }
 
         [HttpGet]
@@ -105,6 +103,32 @@ namespace Komis.Controllers
             catch (Exception ex)
             {
                 return RedirectToAction("Archivized");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult AddMeetingPost(int modelCarId, DateTime dateOfMeeting, string clientData)
+        {
+            repository.AddMeeting(new Meeting { CarId = modelCarId, DateOfMeeting = dateOfMeeting, ClientData = clientData, IsArchived = false });
+            return RedirectToAction("Meetings");
+        }
+
+        public ViewResult Meetings()
+        {
+            return View(new MeetingsViewModel { Meetings = repository.Meetings()});
+        }
+
+        [HttpGet]
+        public IActionResult ArchivizeMeeting(int meetingId)
+        {
+            try
+            {
+                repository.ArchivizeMeeting(meetingId);
+                return RedirectToAction("Meetings");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Meetings");
             }
         }
     }

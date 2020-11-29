@@ -30,6 +30,7 @@ namespace Komis.Controllers
             model.priceMediumCars = model.cars.Where(x => x.Price >= 25000 && x.Price < 50000).Count();
             model.priceHighCars = model.cars.Where(x => x.Price >= 50000 && x.Price < 100000).Count();
             model.priceVeryHighCars = model.cars.Where(x => x.Price >= 100000).Count();
+            model.meetings = context.Meetings.Where(x => x.IsArchived == false).Count();
             return View(model);
         }
     }

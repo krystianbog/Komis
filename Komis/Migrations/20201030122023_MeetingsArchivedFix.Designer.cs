@@ -4,14 +4,16 @@ using Komis.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Komis.Migrations
 {
     [DbContext(typeof(KomisContext))]
-    partial class KomisContextModelSnapshot : ModelSnapshot
+    [Migration("20201030122023_MeetingsArchivedFix")]
+    partial class MeetingsArchivedFix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

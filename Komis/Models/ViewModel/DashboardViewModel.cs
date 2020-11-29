@@ -16,5 +16,6 @@ namespace Komis.Models
         public int priceMediumCars { get; set; }
         public int priceHighCars { get; set; }
         public int priceVeryHighCars { get; set; }
+        public int meetings { get; set; }
     }
 }

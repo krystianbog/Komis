@@ -41,6 +41,17 @@ $(function () {
     });
 });
 
+//Add meeting
+$(function () {
+    $('.popmeet').on('click', function () {
+        $('.modalCarId').attr('value', $(this).find('#modalId').attr('value'));
+        $('.actionAddMeeting').attr('asp-route-id', $(this).find('#modalId').attr('value'));
+        //$('.actionAddMeeting').attr('asp-route-id', $(this).find('#clientData').attr('value'));
+        //$('.actionAddMeeting').attr('asp-route-id', $(this).find('#datepicker').attr('value'));
+        $('#meetmodal').modal('show');
+    });
+});
+
 //Bootstrap Tooltips
 $(document).ready(function () {
     $("body").tooltip({ selector: '[data-toggle=tooltip]' });
@@ -51,10 +62,19 @@ $('#searchBox').keydown(function (e) {
     if (e.keyCode == 13) {
         var searchString = $('#searchBox').val();
         if (searchString != "") {
-            var url = "Car/SearchResult?searchString=" + searchString;
+            var url = "/Car/SearchResult?searchString=" + searchString;
             window.location.href = url;
         }
     }
 })
+
+//Calendar
+$('#datepicker').datepicker({
+    weekStart: 1,
+    daysOfWeekHighlighted: "6,0",
+    autoclose: true,
+    todayHighlight: true,
+});
+$('#datepicker').datepicker("setDate", new Date());
 
 $('.price_tooltip').tooltip({ html: true })
