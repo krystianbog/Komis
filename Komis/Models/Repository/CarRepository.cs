@@ -21,7 +21,7 @@ namespace Komis.Models
             context = ctx;
         }
 
-        public void SaveCar(Car car)
+        public void AddCar(Car car)
         {
             if (car.Image != null)
             {

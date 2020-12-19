@@ -18,7 +18,7 @@ namespace Komis.Controllers
         public CarController(CarRepository repo, KomisContext komisContext)
         {
             this.repository = repo;
-            context = komisContext;
+            this.context = komisContext;
         }
 
         public IActionResult Index()
@@ -26,96 +26,87 @@ namespace Komis.Controllers
             return View();
         }
 
-        public ViewResult List()
+        public ViewResult Cars()
         {
             return View(new CarViewModel { Cars = repository.Cars() });
         }
 
         [HttpPost]
-        public IActionResult Create(Car car)
+        public IActionResult AddCar(Car car)
         {
             try
             {
-                repository.SaveCar(car);
-                return RedirectToAction("List");
+                repository.AddCar(car);
+                return RedirectToAction("Cars");
             }
             catch (Exception ex)
             {
-                return RedirectToAction("List");
+                return RedirectToAction("Cars");
             }
         }
 
-        public ViewResult Edit(int editCarId)
+        public ViewResult EditCar(int editCarId)
         {
             return View(repository.GetCar(editCarId));
         }
 
-        public ViewResult SearchResult(string searchString)
-        {
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                return View(repository.SetSearchViewModel(searchString));
-            }
-            return View();
-        }
-
         [HttpPost]
-        public IActionResult Edit(Car editCar)
+        public IActionResult EditCar(Car editCar)
         {
             try
             {
                 repository.EditCar(editCar);
-                return RedirectToAction("List");
+                return RedirectToAction("Cars");
             }
             catch (Exception ex)
             {
-                return RedirectToAction("List");
+                return RedirectToAction("Cars");
             }
         }
 
-        public ViewResult Archivized()
+        public ViewResult ArchivizedCars()
         {
             return View(new CarViewModel { Cars = repository.ArchivizedCars() });
         }
 
         [HttpGet]
-        public IActionResult Archivize(int carId)
+        public IActionResult ArchivizeCar(int carId)
         {
             try
             {
                 repository.ArchivizeCar(carId);
-                return RedirectToAction("List");
+                return RedirectToAction("Cars");
             }
             catch (Exception ex)
             {
-                return RedirectToAction("List");
+                return RedirectToAction("Cars");
             }
         }
 
         [HttpGet]
-        public IActionResult UnArchivize(int carId)
+        public IActionResult UnArchivizeCar(int carId)
         {
             try
             {
                 repository.UnArchivizeCar(carId);
-                return RedirectToAction("Archivized");
+                return RedirectToAction("ArchivizedCars");
             }
             catch (Exception ex)
             {
-                return RedirectToAction("Archivized");
+                return RedirectToAction("ArchivizedCars");
             }
-        }
-
-        [HttpPost]
-        public IActionResult AddMeetingPost(int modelCarId, DateTime dateOfMeeting, string clientData)
-        {
-            repository.AddMeeting(new Meeting { CarId = modelCarId, DateOfMeeting = dateOfMeeting, ClientData = clientData, IsArchived = false });
-            return RedirectToAction("Meetings");
         }
 
         public ViewResult Meetings()
         {
-            return View(new MeetingsViewModel { Meetings = repository.Meetings()});
+            return View(new MeetingsViewModel { Meetings = repository.Meetings() });
+        }
+
+        [HttpPost]
+        public IActionResult AddMeeting(int modelCarId, DateTime dateOfMeeting, string clientData)
+        {
+            repository.AddMeeting(new Meeting { CarId = modelCarId, DateOfMeeting = dateOfMeeting, ClientData = clientData, IsArchived = false });
+            return RedirectToAction("Meetings");
         }
 
         [HttpGet]
@@ -130,6 +121,15 @@ namespace Komis.Controllers
             {
                 return RedirectToAction("Meetings");
             }
+        }
+
+        public ViewResult SearchResult(string searchString)
+        {
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                return View(repository.SetSearchViewModel(searchString));
+            }
+            return View();
         }
     }
 }

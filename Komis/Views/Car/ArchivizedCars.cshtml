@@ -52,7 +52,7 @@
                             <span data-toggle="tooltip" data-placement="top" title="Cena" class="font-weight-bold" style="color:royalblue">@car.Price PLN</span>
                         </td>
                         <td style="background-color:lightgray; width:5%;border-top-right-radius:25px; border-bottom-right-radius:25px;" class="text-center">
-                            <a asp-controller="Car" asp-action="UnArchivize" asp-route-carId="@car.CarId"><span data-toggle="tooltip" data-placement="top" title="Przywróć auto do oferty"><i class="far fa-eye" style="cursor:pointer; color:green"></i></span></a>
+                            <a asp-controller="Car" asp-action="UnArchivizeCar" asp-route-carId="@car.CarId"><span data-toggle="tooltip" data-placement="top" title="Przywróć auto do oferty"><i class="far fa-eye" style="cursor:pointer; color:green"></i></span></a>
                         </td>
                     </tr>
                 }
