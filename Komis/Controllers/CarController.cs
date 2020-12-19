@@ -127,7 +127,7 @@ namespace Komis.Controllers
         {
             if (!string.IsNullOrEmpty(searchString))
             {
-                return View(repository.SetSearchViewModel(searchString));
+                return View(repository.SearchResult(searchString));
             }
             return View();
         }

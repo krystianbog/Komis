@@ -85,7 +85,7 @@ namespace Komis.Models
             return context.Cars.FirstOrDefault(c => c.CarId == carId);
         }
 
-        public SearchViewModel SetSearchViewModel(string searchString)
+        public SearchViewModel SearchResult(string searchString)
         {
             string originalSearchString = searchString;
             List<string> searchList = searchString.ToLower().Split(" ").ToList();
