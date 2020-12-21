@@ -21,6 +21,21 @@ namespace Komis.Models
             context = ctx;
         }
 
+        public List<Car> Cars()
+        {
+            return context.Cars.Where(x => x.IsArchived == false).ToList();
+        }
+
+        public List<Car> ArchivizedCars()
+        {
+            return context.Cars.Where(x => x.IsArchived == true).ToList();
+        }
+
+        public Car GetCar(int carId)
+        {
+            return context.Cars.FirstOrDefault(c => c.CarId == carId);
+        }
+
         public void AddCar(Car car)
         {
             if (car.Image != null)
@@ -80,11 +95,6 @@ namespace Komis.Models
             context.SaveChanges();
         }
 
-        public Car GetCar (int carId)
-        {
-            return context.Cars.FirstOrDefault(c => c.CarId == carId);
-        }
-
         public SearchViewModel SearchResult(string searchString)
         {
             string originalSearchString = searchString;
@@ -118,26 +128,16 @@ namespace Komis.Models
             return searchResult;
         }
 
-        public void AddMeeting(Meeting meeting)
-        {
-            meeting.DateOfMeeting = meeting.DateOfMeeting.Date;
-            context.Meetings.Add(meeting);
-            context.SaveChanges();
-        }
-
         public List<Meeting> Meetings()
         {
             return context.Meetings.Include(x => x.Car).Where(x => x.IsArchived == false).ToList();
         }
 
-        public List<Car> ArchivizedCars()
+        public void AddMeeting(Meeting meeting)
         {
-            return context.Cars.Where(x => x.IsArchived == true).ToList();
-        }
-
-        public List<Car> Cars()
-        {
-            return context.Cars.Where(x => x.IsArchived == false).ToList();
+            meeting.DateOfMeeting = meeting.DateOfMeeting.Date;
+            context.Meetings.Add(meeting);
+            context.SaveChanges();
         }
 
         public void ArchivizeMeeting(int meetingId)
