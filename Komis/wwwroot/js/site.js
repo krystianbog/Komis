@@ -1,9 +1,4 @@
-﻿//Logout from site form
-$("#aLogout").click(function () {
-    $("#formLogout").submit();
-});
-
-//Rollup car create form in list
+﻿//Rollup car create form in list
 $(document).ready(function () {
     $("#btnCreateCar").click(function () {
         $("#formCreateCar").slideToggle("fast");
@@ -16,6 +11,15 @@ $(".custom-file-input").on("change", function () {
     $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
 });
 
+//Bootstrap Tooltips
+$(document).ready(function () {
+    $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+});
+
+//Logout from site form
+$("#aLogout").click(function () {
+    $("#formLogout").submit();
+});
 //Bootstrap form validate
 (function () {
     'use strict';
@@ -46,15 +50,8 @@ $(function () {
     $('.popmeet').on('click', function () {
         $('.modalCarId').attr('value', $(this).find('#modalId').attr('value'));
         $('.actionAddMeeting').attr('asp-route-id', $(this).find('#modalId').attr('value'));
-        //$('.actionAddMeeting').attr('asp-route-id', $(this).find('#clientData').attr('value'));
-        //$('.actionAddMeeting').attr('asp-route-id', $(this).find('#datepicker').attr('value'));
         $('#meetmodal').modal('show');
     });
-});
-
-//Bootstrap Tooltips
-$(document).ready(function () {
-    $("body").tooltip({ selector: '[data-toggle=tooltip]' });
 });
 
 //Search box function
