@@ -88,7 +88,7 @@ namespace Komis.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = user.Id, code = code },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Komis samochodowy - aktywacja konta",
+                    await _emailSender.SendEmailAsync(Input.Email, "Aktywacja konta",
                         $"Aktywuj swoje konto w komisie samochodowym <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>klikając tu</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)

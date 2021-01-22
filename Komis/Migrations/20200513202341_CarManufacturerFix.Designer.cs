@@ -4,18 +4,20 @@ using Komis.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Komis.Migrations
 {
     [DbContext(typeof(KomisContext))]
-    partial class KomisContextModelSnapshot : ModelSnapshot
+    [Migration("20200513202341_CarManufacturerFix")]
+    partial class CarManufacturerFix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.9")
+                .HasAnnotation("ProductVersion", "3.1.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -31,9 +33,6 @@ namespace Komis.Migrations
 
                     b.Property<string>("Color")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("EngineSize")
-                        .HasColumnType("float");
 
                     b.Property<string>("FuelType")
                         .HasColumnType("nvarchar(max)");
@@ -62,41 +61,6 @@ namespace Komis.Migrations
                     b.HasKey("CarId");
 
                     b.ToTable("Cars");
-                });
-
-            modelBuilder.Entity("Komis.Models.Meeting", b =>
-                {
-                    b.Property<int>("MeetingId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CarId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ClientData")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateOfMeeting")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsArchived")
-                        .HasColumnType("bit");
-
-                    b.HasKey("MeetingId");
-
-                    b.HasIndex("CarId");
-
-                    b.ToTable("Meetings");
-                });
-
-            modelBuilder.Entity("Komis.Models.Meeting", b =>
-                {
-                    b.HasOne("Komis.Models.Car", "Car")
-                        .WithMany()
-                        .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

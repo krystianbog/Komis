@@ -1,4 +1,4 @@
-﻿
+﻿@model DashboardViewModel
 @{
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
 }
@@ -8,9 +8,99 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Indexxx</title>
+    <title>Index</title>
 </head>
-<body>
-    Strona startowa dashboard
+<body style="background-color:#f1f1f1">
+
+    <hr />
+    <div class="text-center">
+        <h1 class="display-3">Witaj na stronie zarządzania!</h1>
+    </div>
+    <hr />
+    <br />
+    <span style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-size:large">
+        Funkcjonalnościach serwisu dostępne są w rozwijanym menu z lewej strony <b>(&#9776; menu)</b>
+    </span>
+    <br /><br />
+    <span style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-size:large">
+        Ustawienia konta i dostęp do strony startowej dostępne są w rozwijanym menu z prawej strony <b>(opcje &#9776;)</b>
+    </span>
+    <br /><br />
+    <span style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-size:large">
+        Wyszukiwanie auta na podstawie producenta, modelu, rodzaju nadwozia oraz roku produkcji dostępne jest w górnej części interfejsu
+    </span>
+    <br /><br />
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <h5> Informacje o stanie komisu </h5>
+            <table>
+                <tr>
+                    <td>
+                        <canvas id="PieChart" style="height: 300px"></canvas>
+                    </td>
+                    <td style:"text-align">
+                        <canvas id="DoughnutChart" style="height: 300px"></canvas>
+                    </td>
+                    <td>
+                        <span data-html="true" data-toggle="tooltip" data-placement="right" title="< 10000 PLN <br/>  10000 - 25000 PLN <br/> 25000 - 50000 PLN <br/> 50000 - 100000 PLN <br/> 100000 PLN <" class="price_tooltip">
+                            <i class="fas fa-question-circle"></i>
+                        </span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <br />
+    <div>
+        <h4><u>Podsumowanie</u></h4>
+        <h5>Aut ogółem: @Model.allCars</h5>
+        <h5>Auta dostępne w ofercie: @Model.avalibleCars</h5>
+        <h5>Auta w historii: @Model.historyCars</h5>
+        <h5>Aktualne spotkania: @Model.meetings</h5>
+    </div>
+
+    @section Scripts{
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3"></script>
+        <script type="text/javascript">
+        $(function () {
+            var ctxPie = document.getElementById("PieChart").getContext('2d');
+
+            var PieChart = new Chart(ctxPie, {
+                type: 'pie',
+                data: {
+                    labels: ["Auta w ofercie", "Auta w historii"],
+                    datasets: [{
+                        backgroundColor: ["#2C5CBB", "#FFB600"],
+                        data: [@Model.avalibleCars, @Model.historyCars]
+                    }]
+                },
+                options: {
+                    legend: {
+                        position: 'left'
+                    }
+                }
+            });
+
+            var ctxDoughnut = document.getElementById("DoughnutChart").getContext('2d');
+
+            var DoughnutChart = new Chart(ctxDoughnut, {
+                type: 'doughnut',
+                data: {
+                    labels: ["Auta bardzo tanie", "Auta tanie", "Auta zwykłe", "Auta drogie", "Auta bardzo drogie"],
+                    datasets: [{
+                        backgroundColor: ["#2C5CBB", "#348EB6", "#279027", "#FFB600", "#CF2B2B"],
+                        data: [@Model.priceVeryLowCars, @Model.priceLowCars, @Model.priceMediumCars, @Model.priceHighCars, @Model.priceVeryHighCars]
+                    }]
+                },
+                options: {
+                    legend: {
+                        position: 'right'
+                    }
+                }
+            });
+        });
+        </script>
+    }
 </body>
 </html>

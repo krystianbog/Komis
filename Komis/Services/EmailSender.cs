@@ -20,21 +20,16 @@ namespace Komis.Services
             return Execute(Options.SendGridKey, subject, message, email);
         }
 
-        public Task Execute(string apiKey, string subject, string message, string email)
+        public Task Execute(string apiKeyIn, string subjectIn, string messageIn, string emailIn)
         {
+            var apiKey = "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";
             var client = new SendGridClient(apiKey);
-            var msg = new SendGridMessage()
-            {
-                From = new EmailAddress("KomisSamochodowy@email.com"),
-                Subject = subject,
-                PlainTextContent = message,
-                HtmlContent = message
-            };
-            msg.AddTo(new EmailAddress(email));
-
-            // Disable click tracking.
-            // See https://sendgrid.com/docs/User_Guide/Settings/tracking.html
-            msg.SetClickTracking(false, false);
+            var from = new EmailAddress("KomisSamochodowy@email.com");
+            var subject = subjectIn;
+            var to = new EmailAddress(emailIn);
+            var plainTextContent = messageIn;
+            var htmlContent = messageIn;
+            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
 
             return client.SendEmailAsync(msg);
         }

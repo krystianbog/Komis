@@ -1,0 +1,74 @@
+﻿@model MeetingsViewModel
+@{
+    ViewBag.Title = "Spotkanie";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+</head>
+<body style="background-color:#f1f1f1">
+    <br />
+    <table style=" width:100%; background-color:transparent; border-color:grey; border-collapse:separate; border-spacing: 0 15px ">
+        <tbody>
+            @if (Model?.Meetings != null && Model?.Meetings.Count() > 0)
+            {
+                @foreach (var meeting in Model.Meetings.OrderByDescending(c => c.DateOfMeeting))
+                {
+            <tr style="width:100px; height:120px; display:table-row; vertical-align:middle; ">
+                <td style="background-color:lightgray; border-top-left-radius:25px; border-bottom-left-radius:25px; width:30%" class="text-center">
+                    @if (meeting.Car.Photo == null)
+                    {
+                        <span>Brak zdjęcia</span>
+                    }
+                    else
+                    {
+                        <div class="text-left">
+                            <a class="pop" style="cursor:pointer">
+                                <img style="height:120px; width:90%; object-fit:cover; border-top-left-radius:25px; border-bottom-left-radius:25px" src="data:image/jpeg;base64,@Convert.ToBase64String(meeting.Car.Photo)" />
+                            </a>
+                            <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <img src="" class="imagepreview" style="width: 100%;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </td>
+                <td style="background-color:lightgray; width:35%">
+                    <span data-toggle="tooltip" data-placement="top" title="Producent">@meeting.Car.Manufacturer</span>&nbsp;&nbsp;<span data-toggle="tooltip" data-placement="top" title="Model">@meeting.Car.Model</span> <br />
+                    <span data-toggle="tooltip" data-placement="top" title="Rok produkcji">@meeting.Car.YearOfProduction</span>&nbsp;&nbsp;·&nbsp;&nbsp;<span data-toggle="tooltip" data-placement="top" title="Pojemność silnika">@meeting.Car.EngineSize cm3</span>&nbsp;&nbsp;·&nbsp;&nbsp;<span data-toggle="tooltip" data-placement="top" title="Rodzaj paliwa">@meeting.Car.FuelType</span><br />
+                    <span data-toggle="tooltip" data-placement="top" title="Rodzaj napędu">@meeting.Car.Transmission</span>&nbsp;&nbsp;·&nbsp;&nbsp;<span data-toggle="tooltip" data-placement="top" title="Rodzaj nadwozia">@meeting.Car.BodyType</span><br />
+                    <span data-toggle="tooltip" data-placement="top" title="Kolor">@meeting.Car.Color</span>
+                </td>
+                <td style="background-color:lightgray; width:10%" class="text-center">
+                    <span data-toggle="tooltip" data-placement="top" title="Dane klienta">@meeting.ClientData</span>
+                </td>
+                <td style="background-color:lightgray; width:20%" class="text-center">
+                    <span data-toggle="tooltip" data-placement="top" title="Data spotkania">@meeting.DateOfMeeting.ToString("dd/MM/yyyy")</span>
+                </td>
+                <td style="background-color:lightgray; width:5%;border-top-right-radius:25px; border-bottom-right-radius:25px;" class="text-center">
+                    <a asp-action="ArchivizeMeeting" asp-route-meetingId="@meeting.MeetingId"><span data-toggle="tooltip" data-placement="top" title="Zarchiwizuj spotkanie"><i class="fas fa-eye-slash" style="cursor:pointer; color:red;"></i></span></a>
+                </td>
+            </tr>
+                }
+            }
+            else
+            {
+                <tr style="width: 100%; height: 60px; display: table-row; vertical-align: middle">
+                    <td style="background-color:silver; border-radius:10px; width:100%" class="text-center">
+                        <span>Brak spotkań!</span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

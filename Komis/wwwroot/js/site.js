@@ -1,7 +1,77 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿//Rollup car create form in list
+$(document).ready(function () {
+    $("#btnCreateCar").click(function () {
+        $("#formCreateCar").slideToggle("fast");
+    });
+});
 
-// Write your JavaScript code.
+//Show uploaded file name
+$(".custom-file-input").on("change", function () {
+    var fileName = $(this).val().split("\\").pop();
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
+
+//Bootstrap Tooltips
+$(document).ready(function () {
+    $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+});
+
+//Logout from site form
 $("#aLogout").click(function () {
     $("#formLogout").submit();
 });
+//Bootstrap form validate
+(function () {
+    'use strict';
+    window.addEventListener('load', function () {
+        var forms = document.getElementsByClassName('needs-validation');
+        var validation = Array.prototype.filter.call(forms, function (form) {
+            form.addEventListener('submit', function (event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    }, false);
+})();
+
+//Zoom in photos
+$(function () {
+    $('.pop').on('click', function () {
+        $('.imagepreview').attr('src', $(this).find('img').attr('src'));
+        $('#imagemodal').modal('show');
+    });
+});
+
+//Add meeting
+$(function () {
+    $('.popmeet').on('click', function () {
+        $('.modalCarId').attr('value', $(this).find('#modalId').attr('value'));
+        $('.actionAddMeeting').attr('asp-route-id', $(this).find('#modalId').attr('value'));
+        $('#meetmodal').modal('show');
+    });
+});
+
+//Search box function
+$('#searchBox').keydown(function (e) {
+    if (e.keyCode == 13) {
+        var searchString = $('#searchBox').val();
+        if (searchString != "") {
+            var url = "/Car/SearchResult?searchString=" + searchString;
+            window.location.href = url;
+        }
+    }
+})
+
+//Calendar
+$('#datepicker').datepicker({
+    weekStart: 1,
+    daysOfWeekHighlighted: "6,0",
+    autoclose: true,
+    todayHighlight: true,
+});
+$('#datepicker').datepicker("setDate", new Date());
+
+$('.price_tooltip').tooltip({ html: true })

@@ -1,0 +1,95 @@
+﻿@model SearchViewModel
+@{
+    ViewBag.Title = "Wyszukiwarka";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SearchResult</title>
+</head>
+<body style="background-color:#f1f1f1">
+    <table style=" width:100%; background-color:transparent; border-color:grey; border-collapse:separate; border-spacing: 0 15px ">
+        <tbody>
+            @if (Model?.SearchResult != null && Model?.SearchResult.Count() > 0)
+            {
+                <tr style="width: 100%; height: 60px; display: table-row; vertical-align: middle">
+                    <td colspan="5" style="background-color:silver; border-radius:10px" class="text-center">
+                        <span>
+                            Znaleziono <b>@Model.SearchResultCounter</b>
+                            @if (Model.SearchResultCounter == 1)
+                            {
+                                <span>wynik</span>
+                            }
+                            @if (Model.SearchResultCounter < 5)
+                            {
+                                <span>wyniki</span>
+                            }
+                            @if (Model.SearchResultCounter >= 5)
+                            {
+                                <span>wyników</span>
+                            }
+                            dla frazy "@Model?.SearchString"
+                        </span>
+                    </td>
+                </tr>
+                @foreach (var car in Model.SearchResult.OrderByDescending(car => car.CarId))
+                {
+                    <tr style="width:100px; height:120px; display:table-row; vertical-align:middle; ">
+                        <td style="background-color:lightgray; border-top-left-radius:25px; border-bottom-left-radius:25px; width:30%" class="text-center">
+                            @if (car.Photo == null)
+                            {
+                                <span>Brak zdjęcia</span>
+                            }
+                            else
+                            {
+                                <div class="text-left">
+                                    <a class="pop" style="cursor:pointer">
+                                        <img style="height:120px; width:90%; object-fit:cover; border-top-left-radius:25px; border-bottom-left-radius:25px" src="data:image/jpeg;base64,@Convert.ToBase64String(car.Photo)" />
+                                    </a>
+                                    <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    <img src="" class="imagepreview" style="width: 100%;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </td>
+                        <td style="background-color:lightgray; width:40%">
+                            <span data-toggle="tooltip" data-placement="top" title="Producent">@car.Manufacturer</span>&nbsp;&nbsp;<span data-toggle="tooltip" data-placement="top" title="Model">@car.Model</span> <br />
+                            <span data-toggle="tooltip" data-placement="top" title="Rok produkcji">@car.YearOfProduction</span>&nbsp;&nbsp;·&nbsp;&nbsp;<span data-toggle="tooltip" data-placement="top" title="Pojemność silnika">@car.EngineSize cm3</span>&nbsp;&nbsp;·&nbsp;&nbsp;<span data-toggle="tooltip" data-placement="top" title="Rodzaj paliwa">@car.FuelType</span><br />
+                            <span data-toggle="tooltip" data-placement="top" title="Rodzaj napędu">@car.Transmission</span>&nbsp;&nbsp;·&nbsp;&nbsp;<span data-toggle="tooltip" data-placement="top" title="Rodzaj nadwozia">@car.BodyType</span><br />
+                            <span data-toggle="tooltip" data-placement="top" title="Kolor">@car.Color</span>
+                        </td>
+                        <td style="background-color:lightgray; width:20%" class="text-center">
+                            <span data-toggle="tooltip" data-placement="top" title="Cena" class="font-weight-bold" style="color:royalblue">@car.Price PLN</span>
+                        </td>
+                        <td style="background-color:lightgray; width:5%" class="text-center">
+                            <a asp-action="EditCar" asp-route-editCarId="@car.CarId"><span data-toggle="tooltip" data-placement="top" title="Edytuj auto"><i class="fas fa-edit"></i></span></a>
+
+                        </td>
+                        <td style="background-color:lightgray; width:5%;border-top-right-radius:25px; border-bottom-right-radius:25px;" class="text-center">
+                            <a asp-action="ArchivizeCar" asp-route-carId="@car.CarId"><span data-toggle="tooltip" data-placement="top" title="Zarchiwizuj auto"><i class="fas fa-eye-slash" style="cursor:pointer; color:red;"></i></span></a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr style="width: 100%; height: 60px; display: table-row; vertical-align: middle">
+                    <td style="background-color:silver; border-radius:10px; width:100%" class="text-center">
+                        <span>Brak wyników wyszukiwania dla frazy "@Model?.SearchString"</span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>
