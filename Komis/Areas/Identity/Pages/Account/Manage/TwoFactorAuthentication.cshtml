@@ -1,7 +1,7 @@
 ﻿@page
 @model TwoFactorAuthenticationModel
 @{
-    ViewData["Title"] = "Dwufazowa autoryzacja";
+    ViewData["Title"] = "Autoryzacja dwufazowa";
     ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
 }
 
@@ -37,7 +37,7 @@
             <button type="submit" class="btn btn-primary">Zapomnij tą przeglądarkę</button>
         </form>
     }
-    <a asp-page="./Disable2fa" class="btn btn-primary">Wyłącz dwufazową autoryzacje</a>
+<a asp-page="./Disable2fa" class="btn btn-primary">Wyłącz autoryzację dwufazową</a>
     <a asp-page="./GenerateRecoveryCodes" class="btn btn-primary">Resetuj kody bezpieczeństwa</a>
 }
 

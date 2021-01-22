@@ -41,7 +41,7 @@
         </div>
         <div id="mySidenavRight" class="sidenavRight">
             <a href="javascript:void(0)" class="closebtnRight" onclick="closeOpt()">&times;</a>
-            <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><i class="fas fa-user-cog"></i>&nbsp;Konto</a>
+            <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Zarządzaj profilem"><i class="fas fa-user-cog"></i>&nbsp;Konto</a>
             <a asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-home"></i>&nbsp;Start</a>
             <form id="formLogout" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
             </form>

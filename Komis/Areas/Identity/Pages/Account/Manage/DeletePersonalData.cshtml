@@ -19,7 +19,7 @@
         @if (Model.RequirePassword)
         {
             <div class="form-group">
-                <label asp-for="Input.Password"></label>
+                <label>Hasło</label>
                 <input asp-for="Input.Password" class="form-control" />
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
